@@ -47,7 +47,9 @@ jobs:
           pycodestyle --exclude=migrations,tests --ignore=E501,E241,E225,E128 .
       - name: Run test
         env:
-          Django: ${{ matrix.django-version }}
+          PYTHON_VERSION: ${{ matrix.python }}
+          DJANGO: ${{ matrix.django }}
+
         run: |
           coverage run --source=ipware manage.py test
       - name: Coveralls
