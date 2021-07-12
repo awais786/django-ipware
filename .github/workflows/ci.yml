@@ -32,12 +32,13 @@ jobs:
           pip install pycodestyle
           pip install flake8
           pip install coveralls
+          pip install pytest
           pip install "django~=${{ matrix.django-version }}.0"
       - name: Run test
         run: |
           coverage run --source=ipware manage.py test
       - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          path-to-lcov: ${{ github.workspace }}/coverage/lcov.info
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.8' }}
+        run: coveralls --service=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
