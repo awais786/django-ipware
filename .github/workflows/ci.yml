@@ -37,19 +37,18 @@ jobs:
           pip install -e .
           pip install coveralls
           pip install "django~=${{ matrix.django-version }}.0"
-      - name: Run flake8
-        run: |
-          pip install flake8
-          flake8 --exclude=migrations,tests --ignore=E501,E241,E225,E128 .
-      - name: Run pycodestyle
-        run: |
-          pip install pycodestyle
-          pycodestyle --exclude=migrations,tests --ignore=E501,E241,E225,E128 .
+#      - name: Run flake8
+#        run: |
+#          pip install flake8
+#          flake8 --exclude=migrations,tests --ignore=E501,E241,E225,E128 .
+#      - name: Run pycodestyle
+#        run: |
+#          pip install pycodestyle
+#          pycodestyle --exclude=migrations,tests --ignore=E501,E241,E225,E128 .
       - name: Run test
         env:
-          PYTHON_VERSION: ${{ matrix.python }}
-          DJANGO: ${{ matrix.django }}
-
+          PYTHON_VERSION: ${{ matrix.python-version }}
+          DJANGO: ${{ matrix.django-version }}
         run: |
           coverage run --source=ipware manage.py test
       - name: Coveralls
