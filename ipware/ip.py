@@ -16,13 +16,13 @@ def get_client_ip(
         proxy_count = -1
 
     if proxy_trusted_ips is None:
-        proxy_trusted_ips = []
+        proxy_trusted_ips = [ ]
 
     if request_header_order is None:
         request_header_order = defs.IPWARE_META_PRECEDENCE_ORDER
 
     for key in request_header_order:
-        value = util.get_request_meta(request, key)
+        value = util.get_request_meta(request, key )
         if value:
             ips, ip_count = util.get_ips_from_string(value)
 
