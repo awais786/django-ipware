@@ -33,6 +33,10 @@ jobs:
           pip install flake8
           pip install coveralls
           pip install "django~=${{ matrix.django-version }}.0"
+      - name: Run linters
+        run: |
+          pycodestyle --exclude=migrations,tests --ignore=E501,E241,E225,E128 .
+          flake8 --exclude=migrations,tests --ignore=E501,E241,E225,E128 .
       - name: Run test
         run: |
           coverage run --source=ipware manage.py test
