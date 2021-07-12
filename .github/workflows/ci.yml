@@ -36,8 +36,8 @@ jobs:
       - name: Run test
         run: |
           coverage run --source=ipware manage.py test
-
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
+          path-to-lcov: ${{ github.workspace }}/coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
