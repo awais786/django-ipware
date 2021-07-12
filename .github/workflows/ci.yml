@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Python ${{ matrix.python-version }}, django ${{ matrix.django-version }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.5, 3.6, 3.7, 3.8, pypy3]
@@ -17,7 +17,7 @@ jobs:
 
         exclude:
           - python-version: 3.5
-            django-version: 3.0
+          - django-version: 3.0
 
     steps:
       - uses: actions/checkout@v2
@@ -36,3 +36,8 @@ jobs:
       - name: Run test
         run: |
           coverage run --source=ipware manage.py test
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
